@@ -15,7 +15,8 @@ function HistoryPage(props) {
                         <th>Payment Id</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Date of Purchase</th>
+                        <th>Product</th>
+                        <th>Track order</th>
                     </tr>
                 </thead>
 
@@ -23,11 +24,13 @@ function HistoryPage(props) {
 
                     {props.user.userData && props.user.userData.history &&
                         props.user.userData.history.map(item => (
+                            console.log(item),
                             <tr key={item.id}>
                                 <td>{item.id}</td>
                                 <td>{item.price}</td>
                                 <td>{item.quantity}</td>
-                                <td>{item.dateOfPurchase}</td>
+                                <td>{item.name}</td>
+                                <td><a href = 'http://localhost:5001/track'>Track</a></td>
                             </tr>
                         ))}
 

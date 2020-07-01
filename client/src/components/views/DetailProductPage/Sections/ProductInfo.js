@@ -33,7 +33,7 @@ function ProductInfo(props) {
                     onClick={addToCarthandler}
                 >
                     Add to Cart
-                    </Button>
+                </Button>
             </div>
         </div>
     )
