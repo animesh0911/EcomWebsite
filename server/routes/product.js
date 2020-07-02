@@ -50,13 +50,22 @@ router.post("/uploadProduct", auth, (req, res) => {
 
 router.get("/getProductRecommendations", auth ,(req, res) => {
     let orderHistory = []
+    let productCategory = []
     req.user.history.map((entry, index) => {
         orderHistory.push(entry.id)
     })
     Product.find({_id:{$in: orderHistory}})
-    .exec((err, products) => {
+    .exec((err, tempProducts) => {
         if (err) return res.status(400).json({ success: false, err })
-        return res.status(200).json({success: true, products})
+        console.log(tempProducts)
+        tempProducts.map((tempProduct, index) => {
+            productCategory.push(tempProduct.continents)
+        })
+        Product.find({continents:{$in:productCategory}})
+        .exec((err, products) => {
+            if (err) return res.status(400).json({ success: false, err })
+            return res.status(200).json({success: true, products})
+        })
     })
 });
 
