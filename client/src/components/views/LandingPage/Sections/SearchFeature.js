@@ -9,11 +9,9 @@ function SearchFeature(props) {
 
     const onChangeSearch = (event) => {
         setSearchTerms(event.currentTarget.value)
-
         props.refreshFunction(event.currentTarget.value)
-
     }
-
+ 
     return (
         <div>
             <Search
