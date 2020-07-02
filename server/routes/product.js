@@ -57,7 +57,6 @@ router.get("/getProductRecommendations", auth ,(req, res) => {
     Product.find({_id:{$in: orderHistory}})
     .exec((err, tempProducts) => {
         if (err) return res.status(400).json({ success: false, err })
-        console.log(tempProducts)
         tempProducts.map((tempProduct, index) => {
             productCategory.push(tempProduct.continents)
         })
