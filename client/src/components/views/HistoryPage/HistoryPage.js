@@ -1,6 +1,20 @@
-import React from 'react'
-
+import React from 'react';
+import Axios from 'axios';
+import easyinvoice from 'easyinvoice';
 function HistoryPage(props) {
+
+    const invoice = () => {
+        Axios.get('/api/invoice')
+        .then(response => {
+            console.log(response.data)
+            if(response.data.success == true) {
+                easyinvoice.download('myInvoice.pdf', response.data.result.pdf);
+                alert("invoice successfully downloaded. Can be viewed in local storage");
+            } else {
+                alert("invoice generation failed")
+            }
+        });
+    }
      
     return (
         <div style={{ width: '80%', margin: '3rem auto' }}>
@@ -17,6 +31,7 @@ function HistoryPage(props) {
                         <th>Quantity</th>
                         <th>Product</th>
                         <th>Track order</th>
+                        <th>Invoice</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -29,6 +44,7 @@ function HistoryPage(props) {
                                 <td>{item.quantity}</td>
                                 <td>{item.name}</td>
                                 <td><a href = {`localhost:5001/track?id='${item.paymentId}`} >Track</a></td>
+                                <td> <button onClick={invoice}>Get Invoice</button></td>
                             </tr>
                         ))}
                 </tbody>

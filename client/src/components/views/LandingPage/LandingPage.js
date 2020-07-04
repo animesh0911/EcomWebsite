@@ -6,6 +6,8 @@ import CheckBox from './Sections/CheckBox';
 import RadioBox from './Sections/RadioBox';
 import { continents, price } from './Sections/Datas';
 import SearchFeature from './Sections/SearchFeature';
+import { CommentOutlined } from '@ant-design/icons';
+
 
 const { Meta } = Card;
 
@@ -140,7 +142,6 @@ function LandingPage() {
         getProducts(variables)
     }
 
-
     return (
         <div style={{ width: '75%', margin: '3rem auto' }}>
             <div style={{ textAlign: 'center' }}>
@@ -168,7 +169,6 @@ function LandingPage() {
 
             {/* Search  */}
             <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '1rem auto' }}>
-
                 <SearchFeature
                     refreshFunction={updateSearchTerms}
                 />
@@ -197,8 +197,15 @@ function LandingPage() {
                     <button onClick={onLoadMore}>Load More</button>
                 </div>
             }
-
-
+            <div style={{display: 'flex', justifyContent: 'center', marginTop:'40px'}}>
+                <iframe
+                    allow="microphone;"
+                    width="350"
+                    height="430"
+                    src="https://console.dialogflow.com/api-client/demo/embedded/2b4d7538-4531-4d8d-a4a3-9c2f3b3023f7"
+                    >
+                </iframe>
+            </div>
         </div>
     )
 }
