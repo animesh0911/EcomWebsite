@@ -1,7 +1,7 @@
 import React from 'react'
 
 function HistoryPage(props) {
-
+     
     return (
         <div style={{ width: '80%', margin: '3rem auto' }}>
             <div style={{ textAlign: 'center' }}>
@@ -19,22 +19,18 @@ function HistoryPage(props) {
                         <th>Track order</th>
                     </tr>
                 </thead>
-
                 <tbody>
 
                     {props.user.userData && props.user.userData.history &&
                         props.user.userData.history.map(item => (
-                            console.log(item),
-                            <tr key={item.id}>
-                                <td>{item.id}</td>
+                            <tr key={item.paymentId}>
+                                <td>{item.paymentId}</td>
                                 <td>{item.price}</td>
                                 <td>{item.quantity}</td>
                                 <td>{item.name}</td>
-                                <td><a href = 'http://localhost:5001/track'>Track</a></td>
+                                <td><a href = {`localhost:5001/track?id='${item.paymentId}`} >Track</a></td>
                             </tr>
                         ))}
-
-
                 </tbody>
             </table>
         </div>

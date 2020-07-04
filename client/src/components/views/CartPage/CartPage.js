@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
+import io from 'socket.io-client';
 import {
     getCartItems,
     removeCartItem,
@@ -14,7 +15,6 @@ function CartPage(props) {
     const [Total, setTotal] = useState(0)
     const [ShowTotal, setShowTotal] = useState(false)
     const [ShowSuccess, setShowSuccess] = useState(false)
-
     useEffect(() => {
 
         let cartItems = [];
@@ -58,7 +58,14 @@ function CartPage(props) {
             })
     }
 
+    const socket = io('http://127.0.0.1:5001/')
+
     const transactionSuccess = (data) => {
+        socket.emit('paymentDetails', 
+            {
+                data
+            }
+        )
         dispatch(onSuccessBuy({
             cartDetail: props.user.cartDetail,
             paymentData: data
