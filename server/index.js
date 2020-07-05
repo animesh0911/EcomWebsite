@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const easyinvoice = require('easyinvoice');
 const config = require("./config/key");
-
+const {Payment} = require("./models/Payment");
 // const mongoose = require("mongoose");
 // mongoose
 //   .connect(config.mongoURI, { useNewUrlParser: true })
@@ -47,11 +47,20 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.get('/api/invoice', (req, res) => {
+app.post('/api/getPayment', (req, res) => {
+  Payment.findOne({"data.paymentID" : req.body.paymentId})
+  .exec((err, pay) => {
+    res.json({success : true, pay});
+  })
+})
+
+app.post('/api/invoice', (req, res) => {
+  const userData = req.body.pay
+  console.log(userData)
   var data = {
     //"documentTitle": "RECEIPT", //Defaults to INVOICE
-    "currency": "USD",
-    "taxNotation": "vat", //or gst
+    "currency": "INR",
+    "taxNotation": "gst", //or gst
     "marginTop": 25,
     "marginRight": 25,
     "marginLeft": 25,
@@ -94,7 +103,7 @@ app.get('/api/invoice', (req, res) => {
             "price": 10.45
         }
     ],
-    "bottomNotice": "Kindly pay your invoice within 15 days."
+    "bottomNotice": "Thanyou for shopping with us."
 };
  
   //Create your invoice! Easy!
